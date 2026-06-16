@@ -346,6 +346,33 @@ export default function App() {
             </div>
           </Section>
 
+          <Section
+            id="pro-tips"
+            title="Pro tips"
+            icon={Lightbulb}
+            preview="Winning him over"
+            accent="cocoa"
+          >
+            <div className="space-y-5">
+              <div>
+                <p className="font-display text-[18px] font-medium leading-tight text-deep">
+                  Let him come to you
+                </p>
+                <p className="mt-1.5 text-[14px] leading-relaxed">
+                  Kash is shy with new people and gets overwhelmed by direct attention. Sit quietly, keep a treat handy, and let him decide when to come over. He's drawn to the calmest person in the room.
+                </p>
+              </div>
+              <div>
+                <p className="font-display text-[18px] font-medium leading-tight text-deep">
+                  Reach underhand
+                </p>
+                <p className="mt-1.5 text-[14px] leading-relaxed">
+                  Hands coming down toward his head spook him. He'll duck and dodge. Open your palm and come from below his chin instead, and you'll get a much warmer welcome.
+                </p>
+              </div>
+            </div>
+          </Section>
+
           <Section id="feeding" title="Feeding" icon={Utensils} preview="1 scoop, twice a day">
             <ul className="space-y-2.5">
               <Bullet>
@@ -566,33 +593,6 @@ export default function App() {
                 You won't catch it 100% of the time, and that's okay. Just minimize it where you can.
               </Bullet>
             </ul>
-          </Section>
-
-          <Section
-            id="pro-tips"
-            title="Pro tips"
-            icon={Lightbulb}
-            preview="Winning him over"
-            accent="cocoa"
-          >
-            <div className="space-y-5">
-              <div>
-                <p className="font-display text-[18px] font-medium leading-tight text-deep">
-                  Let him come to you
-                </p>
-                <p className="mt-1.5 text-[14px] leading-relaxed">
-                  Kash is shy with new people and gets overwhelmed by direct attention. Sit quietly, keep a treat handy, and let him decide when to come over. He's drawn to the calmest person in the room.
-                </p>
-              </div>
-              <div>
-                <p className="font-display text-[18px] font-medium leading-tight text-deep">
-                  Reach underhand
-                </p>
-                <p className="mt-1.5 text-[14px] leading-relaxed">
-                  Hands coming down toward his head spook him. He'll duck and dodge. Open your palm and come from below his chin instead, and you'll get a much warmer welcome.
-                </p>
-              </div>
-            </div>
           </Section>
         </div>
 
