@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useId, useState } from 'react';
 import {
   ChevronDown,
   Stethoscope,
@@ -56,9 +56,14 @@ function Callout({ children, tone = 'warm' }) {
   );
 }
 
-function CrinkleImage({ src, alt, indents = 16, depth = 2.8 }) {
-  // Softened crinkle: each "tooth" is a smooth quadratic-Bezier scallop
-  // rather than a sharp zigzag triangle.
+function CrinkleImage({ src, alt, indents = 16, depth = 2.8, borderWidth = 8 }) {
+  // Softened crinkle: each "tooth" is a smooth quadratic-Bezier scallop.
+  // The path is rendered twice: once as a white stroke (the border, since
+  // half the stroke extends outside the shape) and once as the clip path
+  // for the image, which covers the inside half of the stroke.
+  const id = useId();
+  const clipId = `crinkle-clip-${id.replace(/[^a-zA-Z0-9]/g, '')}`;
+
   const size = 100;
   const step = size / (indents * 2);
   const parts = ['M0 0'];
@@ -90,24 +95,39 @@ function CrinkleImage({ src, alt, indents = 16, depth = 2.8 }) {
   parts.push('Z');
 
   const path = parts.join(' ');
-  const svg = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${size} ${size}' preserveAspectRatio='none'><path fill='white' d='${path}'/></svg>`;
-  const maskUrl = `url("data:image/svg+xml;utf8,${encodeURIComponent(svg)}")`;
+  const pad = borderWidth / 2;
+
   return (
-    <img
-      src={src}
-      alt={alt}
-      loading="eager"
-      className="w-full aspect-square object-cover block"
-      style={{
-        maskImage: maskUrl,
-        WebkitMaskImage: maskUrl,
-        maskSize: '100% 100%',
-        WebkitMaskSize: '100% 100%',
-        maskRepeat: 'no-repeat',
-        WebkitMaskRepeat: 'no-repeat',
-        filter: 'drop-shadow(0 6px 14px rgba(42, 24, 18, 0.14))',
-      }}
-    />
+    <svg
+      viewBox={`${-pad} ${-pad} ${size + borderWidth} ${size + borderWidth}`}
+      preserveAspectRatio="xMidYMid meet"
+      className="w-full aspect-square block"
+      style={{ filter: 'drop-shadow(0 6px 14px rgba(42, 24, 18, 0.14))' }}
+      role="img"
+      aria-label={alt}
+    >
+      <defs>
+        <clipPath id={clipId}>
+          <path d={path} />
+        </clipPath>
+      </defs>
+      <path
+        d={path}
+        fill="white"
+        stroke="white"
+        strokeWidth={borderWidth}
+        strokeLinejoin="round"
+      />
+      <image
+        href={src}
+        x="0"
+        y="0"
+        width={size}
+        height={size}
+        preserveAspectRatio="xMidYMid slice"
+        clipPath={`url(#${clipId})`}
+      />
+    </svg>
   );
 }
 
