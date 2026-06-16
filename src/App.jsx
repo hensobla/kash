@@ -12,6 +12,7 @@ import {
   PawPrint,
   ExternalLink,
   MapPin,
+  Lightbulb,
 } from 'lucide-react';
 
 function StairsIcon(props) {
@@ -62,25 +63,25 @@ function CrinkleImage({ src, alt, indents = 16, depth = 2.8 }) {
   const step = size / (indents * 2);
   const parts = ['M0 0'];
 
-  // Top edge — left to right
+  // Top edge, left to right
   for (let i = 0; i < indents; i++) {
     const cx = +((2 * i + 1) * step).toFixed(3);
     const ex = +((2 * i + 2) * step).toFixed(3);
     parts.push(`Q${cx} ${depth} ${ex} 0`);
   }
-  // Right edge — top to bottom
+  // Right edge, top to bottom
   for (let i = 0; i < indents; i++) {
     const cy = +((2 * i + 1) * step).toFixed(3);
     const ey = +((2 * i + 2) * step).toFixed(3);
     parts.push(`Q${size - depth} ${cy} ${size} ${ey}`);
   }
-  // Bottom edge — right to left
+  // Bottom edge, right to left
   for (let i = 0; i < indents; i++) {
     const cx = +(size - (2 * i + 1) * step).toFixed(3);
     const ex = +(size - (2 * i + 2) * step).toFixed(3);
     parts.push(`Q${cx} ${size - depth} ${ex} ${size}`);
   }
-  // Left edge — bottom to top
+  // Left edge, bottom to top
   for (let i = 0; i < indents; i++) {
     const cy = +(size - (2 * i + 1) * step).toFixed(3);
     const ey = +(size - (2 * i + 2) * step).toFixed(3);
@@ -129,6 +130,7 @@ function Section({
   };
 
   const isRust = accent === 'rust';
+  const isCocoa = accent === 'cocoa';
 
   return (
     <div
@@ -136,6 +138,8 @@ function Section({
       className={`scroll-mt-24 rounded-3xl overflow-hidden ${
         isRust
           ? 'border-2 border-rust/30 bg-gradient-to-b from-rust/[0.09] via-rust/[0.04] to-rust/[0.02]'
+          : isCocoa
+          ? 'border-2 border-cocoa/30 bg-gradient-to-b from-cocoa/[0.09] via-cocoa/[0.04] to-cocoa/[0.02]'
           : 'bg-white border border-tan/50'
       }`}
     >
@@ -143,22 +147,22 @@ function Section({
         type="button"
         onClick={() => setOpen(!open)}
         className={`w-full flex items-center gap-4 px-5 py-4 transition text-left ${
-          isRust ? 'active:bg-rust/10' : 'active:bg-butter/30'
+          isRust ? 'active:bg-rust/10' : isCocoa ? 'active:bg-cocoa/10' : 'active:bg-butter/30'
         }`}
         aria-expanded={open}
       >
         <span
-          className={`flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl ${
-            isRust ? 'bg-rust text-white shadow-sm' : 'bg-butter'
+          className={`flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl shadow-sm ${
+            isRust ? 'bg-rust text-white' : isCocoa ? 'bg-cocoa text-white' : 'bg-butter shadow-none'
           }`}
         >
           <Icon
-            className={`h-5 w-5 ${isRust ? 'text-white' : 'text-deep'}`}
+            className={`h-5 w-5 ${isRust || isCocoa ? 'text-white' : 'text-deep'}`}
             strokeWidth={2.25}
           />
         </span>
         <span className="flex-1 min-w-0">
-          <span className="block font-display text-[20px] font-medium text-deep leading-tight">
+          <span className="block font-display text-[20px] font-medium leading-tight text-deep">
             {title}
           </span>
           {preview && (
@@ -166,6 +170,8 @@ function Section({
               className={`block mt-0.5 ${
                 isRust
                   ? 'text-[11px] text-rust font-bold uppercase tracking-[0.2em]'
+                  : isCocoa
+                  ? 'text-[11px] text-cocoa font-bold uppercase tracking-[0.2em]'
                   : 'text-[13px] text-mid'
               }`}
             >
@@ -176,7 +182,7 @@ function Section({
         <ChevronDown
           className={`h-5 w-5 transition-transform duration-200 ${
             open ? 'rotate-180' : ''
-          } ${isRust ? 'text-rust' : 'text-mid'}`}
+          } ${isRust ? 'text-rust' : isCocoa ? 'text-cocoa' : 'text-mid'}`}
           strokeWidth={2.5}
         />
       </button>
@@ -186,7 +192,7 @@ function Section({
         }`}
       >
         <div className="overflow-hidden">
-          <div className="px-5 pb-6 pt-2 text-deep text-[15px] leading-relaxed">
+          <div className="px-5 pb-6 pt-2 text-[15px] leading-relaxed text-deep">
             {children}
           </div>
         </div>
@@ -200,7 +206,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-cream text-deep font-body">
-      {/* Sticky header — branding on the left, persistent emergency CTA on the right */}
+      {/* Sticky header. Branding on the left, persistent emergency CTA on the right. */}
       <header className="sticky top-0 z-40 bg-cream/85 backdrop-blur-md border-b border-tan/40">
         <div className="flex items-center justify-between gap-3 px-4 py-3 max-w-md mx-auto">
           <div className="flex items-center gap-2">
@@ -221,7 +227,7 @@ export default function App() {
       </header>
 
       <main className="max-w-md mx-auto px-4 pb-16">
-        {/* Photo of Kash — small, tilted, left-aligned with content */}
+        {/* Photo of Kash. Small, tilted, left-aligned with content. */}
         <section className="pt-8 pb-3">
           <div className="w-[37.5%] rotate-[-4deg]">
             <CrinkleImage src={`${import.meta.env.BASE_URL}kash.jpg`} alt="Kash" />
@@ -259,7 +265,7 @@ export default function App() {
           </p>
         </section>
 
-        {/* Accordion sections — vet first, with rust accent + controlled open state */}
+        {/* Accordion sections. Vet first, with rust accent + controlled open state. */}
         <div className="space-y-3">
           <Section
             id="emergency"
@@ -301,7 +307,7 @@ export default function App() {
                 <p className="font-semibold text-deep mb-2.5">Here's how it works:</p>
                 <ul className="space-y-2.5">
                   <Bullet color="rust">
-                    Take him to whatever vet makes sense — his regular clinic if it's open, the nearest emergency vet if it's urgent.
+                    Take him to whatever vet makes sense. His regular clinic if it's open, the nearest emergency vet if it's urgent.
                   </Bullet>
                   <Bullet color="rust">
                     You'll pay the bill up front (the clinic bills the owner directly, not the insurer).
@@ -315,7 +321,7 @@ export default function App() {
 
               <p>
                 If it's serious and his regular clinic is closed,{' '}
-                <strong className="font-semibold">don't waste time</strong> — go to the nearest 24-hour emergency animal hospital.
+                <strong className="font-semibold">don't waste time.</strong> Go to the nearest 24-hour emergency animal hospital.
               </p>
             </div>
           </Section>
@@ -402,7 +408,7 @@ export default function App() {
                 <strong className="font-semibold">carrots and blueberries</strong> are favorites.
               </Bullet>
               <Bullet>
-                Easy on the volume of veggies, too — too many and he gets gassy.
+                Easy on the volume of veggies, too. Too many and he gets gassy.
               </Bullet>
               <Bullet>
                 Please don't give him fatty human food or scraps.{' '}
@@ -438,7 +444,7 @@ export default function App() {
             <div className="mt-4">
               <Callout tone="sage">
                 <p>
-                  <strong className="font-bold">Quick paw test:</strong> press the back of your hand to the pavement for about 7 seconds — if it's too hot for your hand, it's too hot for his paws.
+                  <strong className="font-bold">Quick paw test:</strong> press the back of your hand to the pavement for about 7 seconds. If it's too hot for your hand, it's too hot for his paws.
                 </p>
               </Callout>
             </div>
@@ -486,7 +492,7 @@ export default function App() {
           <Section id="alone" title="Leaving Him Alone" icon={Home} preview="Anxious boi">
             <ul className="space-y-2.5">
               <Bullet>
-                He gets <strong className="font-semibold">loud</strong> when truly alone — barking and howling almost right away.
+                He gets <strong className="font-semibold">loud</strong> when truly alone. Barking and howling almost right away.
               </Bullet>
               <Bullet>
                 The good news: he doesn't need a{' '}
@@ -503,7 +509,7 @@ export default function App() {
                 If you're at Kash's home
               </p>
               <p className="mt-1.5 text-deep">
-                He's on familiar turf — that makes this easier.
+                He's on familiar turf, which makes this easier.
               </p>
               <p className="mt-2 text-deep">
                 You can leave him comfortably for{' '}
@@ -525,7 +531,7 @@ export default function App() {
               </Bullet>
               <Bullet>
                 He has{' '}
-                <strong className="font-semibold">his own bed</strong> if you'd rather he didn't sleep with you — keep it right next to yours and he'll be happy.
+                <strong className="font-semibold">his own bed</strong> if you'd rather he didn't sleep with you. Keep it right next to yours and he'll be happy.
               </Bullet>
             </ul>
           </Section>
@@ -537,9 +543,36 @@ export default function App() {
                 <strong className="font-semibold">If you can, carry him up and down.</strong>
               </Bullet>
               <Bullet>
-                You won't catch it 100% of the time, and that's okay — just minimize it where you can.
+                You won't catch it 100% of the time, and that's okay. Just minimize it where you can.
               </Bullet>
             </ul>
+          </Section>
+
+          <Section
+            id="pro-tips"
+            title="Pro tips"
+            icon={Lightbulb}
+            preview="Winning him over"
+            accent="cocoa"
+          >
+            <div className="space-y-5">
+              <div>
+                <p className="font-display text-[18px] font-medium leading-tight text-deep">
+                  Let him come to you
+                </p>
+                <p className="mt-1.5 text-[14px] leading-relaxed">
+                  Kash is shy with new people and gets overwhelmed by direct attention. Sit quietly, keep a treat handy, and let him decide when to come over. He's drawn to the calmest person in the room.
+                </p>
+              </div>
+              <div>
+                <p className="font-display text-[18px] font-medium leading-tight text-deep">
+                  Reach underhand
+                </p>
+                <p className="mt-1.5 text-[14px] leading-relaxed">
+                  Hands coming down toward his head spook him. He'll duck and dodge. Open your palm and come from below his chin instead, and you'll get a much warmer welcome.
+                </p>
+              </div>
+            </div>
           </Section>
         </div>
 

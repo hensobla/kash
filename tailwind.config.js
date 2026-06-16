@@ -14,6 +14,7 @@ export default {
         'persimmon-dark': '#B84B2A',
         sage: '#6E8B5C',
         rust: '#B53321',
+        cocoa: '#4D3526',
       },
       fontFamily: {
         display: ['Fraunces', 'Georgia', 'serif'],
