@@ -373,7 +373,7 @@ export default function App() {
             </div>
             <ul className="space-y-2.5">
               <Bullet>
-                He's potty trained and he's at home, so this is mostly straightforward.
+                He's potty trained, so this is mostly straightforward.
               </Bullet>
               <Bullet>
                 He may still need the occasional reminder with someone new around.{' '}
@@ -524,8 +524,8 @@ export default function App() {
                 so you don't get pee drops in the bed.
               </Bullet>
               <Bullet>
-                I'll bring{' '}
-                <strong className="font-semibold">his own bed</strong> in case you'd rather he didn't sleep with you — keep it right next to yours and he'll be happy.
+                He has{' '}
+                <strong className="font-semibold">his own bed</strong> if you'd rather he didn't sleep with you — keep it right next to yours and he'll be happy.
               </Bullet>
             </ul>
           </Section>
