@@ -228,7 +228,7 @@ export default function App() {
     <div className="min-h-screen bg-cream text-deep font-body">
       {/* Sticky header. Branding on the left, persistent emergency CTA on the right. */}
       <header className="sticky top-0 z-40 bg-cream/85 backdrop-blur-md border-b border-tan/40">
-        <div className="flex items-center justify-between gap-3 px-4 py-3 max-w-md mx-auto">
+        <div className="flex items-center justify-between gap-3 px-4 py-3 max-w-md lg:max-w-6xl lg:px-6 mx-auto">
           <div className="flex items-center gap-2">
             <PawPrint className="h-5 w-5 text-persimmon" strokeWidth={2.25} />
             <span className="font-display text-[18px] font-semibold text-deep tracking-tight">
@@ -246,16 +246,19 @@ export default function App() {
         </div>
       </header>
 
-      <main className="max-w-md mx-auto px-4 pb-16">
-        {/* Photo of Kash. Small, tilted, left-aligned with content. */}
-        <section className="pt-8 pb-3">
-          <div className="w-[37.5%] rotate-[-4deg]">
-            <CrinkleImage src={`${import.meta.env.BASE_URL}kash.jpg`} alt="Kash" />
-          </div>
-        </section>
+      <main className="max-w-md mx-auto px-4 pb-16 lg:max-w-6xl lg:px-6">
+        <div className="lg:grid lg:grid-cols-12 lg:gap-12 lg:pt-4">
+          {/* Left column: photo + hero. Sticky on lg+ so it stays in view while the accordion scrolls. */}
+          <div className="lg:col-span-5 lg:sticky lg:top-20 lg:self-start">
+            {/* Photo of Kash. Small, tilted, left-aligned with content. */}
+            <section className="pt-8 lg:pt-2 pb-3">
+              <div className="w-[37.5%] lg:w-1/2 rotate-[-4deg]">
+                <CrinkleImage src={`${import.meta.env.BASE_URL}kash.jpg`} alt="Kash" />
+              </div>
+            </section>
 
-        {/* Hero */}
-        <section className="pt-3 pb-7">
+            {/* Hero */}
+            <section className="pt-3 pb-7 lg:pb-0">
           <p className="text-[11px] uppercase tracking-[0.25em] text-persimmon font-bold">
             A guide for the sitter
           </p>
@@ -283,10 +286,13 @@ export default function App() {
             Everything you need. The short version: he's sweet, shy, loves a cuddle, and is deeply food-motivated. He'll do almost anything for a treat and almost nothing without one.{' '}
             <strong className="font-semibold">Keep treats on you at all times.</strong>
           </p>
-        </section>
+            </section>
+          </div>
 
-        {/* Accordion sections. Vet first, with rust accent + controlled open state. */}
-        <div className="space-y-3">
+          {/* Right column: accordion */}
+          <div className="lg:col-span-7">
+            {/* Accordion sections. Vet first, with rust accent + controlled open state. */}
+            <div className="space-y-3 lg:pt-2">
           <Section
             id="emergency"
             title="Vet & Emergencies"
@@ -385,34 +391,40 @@ export default function App() {
                 This is intentionally a smaller amount of kibble, so treats throughout the day are expected and encouraged (see Treats below).
               </Bullet>
             </ul>
-            <div className="grid grid-cols-2 gap-3 mt-5">
-              <figure>
-                <div className="aspect-square rounded-2xl overflow-hidden bg-white border border-tan/60">
-                  <img
-                    src={`${import.meta.env.BASE_URL}food-ball.jpg`}
-                    alt="Feeding ball"
-                    loading="lazy"
-                    className="w-full h-full object-contain"
-                  />
-                </div>
-                <figcaption className="mt-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-mid text-center">
-                  Feeding ball
-                </figcaption>
-              </figure>
-              <figure>
-                <div className="aspect-square rounded-2xl overflow-hidden bg-white border border-tan/60">
-                  <img
-                    src={`${import.meta.env.BASE_URL}food-bottle.jpg`}
-                    alt="Feeding bottle"
-                    loading="lazy"
-                    className="w-full h-full object-contain"
-                  />
-                </div>
-                <figcaption className="mt-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-mid text-center">
-                  Feeding bottle
-                </figcaption>
-              </figure>
+            <div className="grid grid-cols-2 gap-2.5 mt-4">
+              <div className="bg-butter/55 rounded-2xl p-4">
+                <p className="text-[11px] uppercase tracking-[0.18em] font-bold text-mid">
+                  Morning
+                </p>
+                <p className="mt-1.5 text-deep font-semibold leading-tight">
+                  After his walk
+                </p>
+                <p className="text-[13px] text-mid mt-1 leading-snug">
+                  No later than 9am
+                </p>
+              </div>
+              <div className="bg-butter/55 rounded-2xl p-4">
+                <p className="text-[11px] uppercase tracking-[0.18em] font-bold text-mid">
+                  Evening
+                </p>
+                <p className="mt-1.5 text-deep font-semibold leading-tight">
+                  Around 5pm
+                </p>
+              </div>
             </div>
+            <figure className="mt-5 w-1/2">
+              <div className="aspect-square rounded-2xl overflow-hidden bg-white border border-tan/60">
+                <img
+                  src={`${import.meta.env.BASE_URL}food-ball.jpg`}
+                  alt="Feeding ball"
+                  loading="lazy"
+                  className="w-full h-full object-contain"
+                />
+              </div>
+              <figcaption className="mt-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-mid text-center">
+                Feeding ball
+              </figcaption>
+            </figure>
           </Section>
 
           <Section id="potty" title="Potty" icon={Sparkles} preview="Treat after every go">
@@ -451,8 +463,8 @@ export default function App() {
                 <strong className="font-semibold">Stick to the ones I provide</strong> plus the veggies below.
               </Bullet>
               <Bullet>
-                He loves veggies, and they're low-cal so they're a great go-to:{' '}
-                <strong className="font-semibold">carrots and blueberries</strong> are favorites.
+                He loves fruits and veggies, and they're low-cal so they're a great go-to.{' '}
+                <strong className="font-semibold">Carrots and blueberries</strong> are favorites.
               </Bullet>
               <Bullet>
                 Easy on the volume of veggies, too. Too many and he gets gassy.
@@ -464,6 +476,14 @@ export default function App() {
                 </em>
               </Bullet>
             </ul>
+            <div className="bg-rust text-white rounded-2xl px-4 py-3.5 mt-4 shadow-sm">
+              <p className="text-[10px] uppercase tracking-[0.22em] font-bold opacity-90">
+                Never feed him
+              </p>
+              <p className="mt-1 leading-snug">
+                Grapes, raisins, onions, garlic, avocado, cherries, or wild mushrooms. All toxic to dogs.
+              </p>
+            </div>
           </Section>
 
           <Section
@@ -494,6 +514,44 @@ export default function App() {
                   <strong className="font-bold">Quick paw test:</strong> press the back of your hand to the pavement for about 7 seconds. If it's too hot for your hand, it's too hot for his paws.
                 </p>
               </Callout>
+            </div>
+
+            <p className="text-[11px] uppercase tracking-[0.18em] font-bold text-mid mt-5 mb-2.5">
+              Great places to walk
+            </p>
+            <div className="grid gap-2.5">
+              <a
+                href="https://maps.apple/p/hNtakkZHzA92iL"
+                target="_blank"
+                rel="noreferrer"
+                className="bg-butter/55 rounded-2xl p-4 flex items-start gap-3 active:scale-[0.98] transition-transform"
+              >
+                <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl bg-sage text-white">
+                  <MapPin className="h-4 w-4" strokeWidth={2.25} />
+                </span>
+                <div className="flex-1 min-w-0">
+                  <p className="font-display text-[16px] text-deep font-medium flex items-center gap-1.5 leading-tight">
+                    Memory Grove
+                    <ExternalLink className="h-3.5 w-3.5 text-mid" strokeWidth={2.25} />
+                  </p>
+                  <p className="text-[13px] text-mid mt-1 leading-snug">
+                    He can be off leash in the designated areas.
+                  </p>
+                </div>
+              </a>
+              <div className="bg-butter/55 rounded-2xl p-4 flex items-start gap-3">
+                <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl bg-sage text-white">
+                  <MapPin className="h-4 w-4" strokeWidth={2.25} />
+                </span>
+                <div className="flex-1 min-w-0">
+                  <p className="font-display text-[16px] text-deep font-medium leading-tight">
+                    The Gateway
+                  </p>
+                  <p className="text-[13px] text-mid mt-1 leading-snug">
+                    Shopping mall, very close to the house.
+                  </p>
+                </div>
+              </div>
             </div>
           </Section>
 
@@ -558,14 +616,22 @@ export default function App() {
               <p className="mt-1.5 text-deep">
                 He's on familiar turf, which makes this easier.
               </p>
-              <p className="mt-2 text-deep">
-                You can leave him comfortably for{' '}
-                <strong className="font-semibold">30 minutes max.</strong>
+              <p className="mt-3 text-deep font-semibold">Before you leave:</p>
+              <ul className="mt-2 space-y-2">
+                <Bullet>
+                  Turn on the <strong className="font-semibold">bark collar</strong>, then put it on him.
+                </Bullet>
+                <Bullet>
+                  Leave him in the <strong className="font-semibold">living room</strong>, with the other doors closed.
+                </Bullet>
+              </ul>
+              <p className="mt-3 text-deep">
+                He's generally okay for <strong className="font-semibold">an hour or so.</strong> We haven't quite worked up to much longer than that yet.
               </p>
             </div>
           </Section>
 
-          <Section id="sleep" title="Sleep" icon={Moon} preview="Your bed, or his">
+          <Section id="sleep" title="Sleep" icon={Moon} preview="In your bed">
             <ul className="space-y-2.5">
               <Bullet>
                 He'll probably want to{' '}
@@ -575,10 +641,6 @@ export default function App() {
                 Before bed:{' '}
                 <strong className="font-semibold">take him out to potty, then wipe off his willy</strong>{' '}
                 so you don't get pee drops in the bed.
-              </Bullet>
-              <Bullet>
-                He has{' '}
-                <strong className="font-semibold">his own bed</strong> if you'd rather he didn't sleep with you. Keep it right next to yours and he'll be happy.
               </Bullet>
             </ul>
           </Section>
@@ -594,6 +656,8 @@ export default function App() {
               </Bullet>
             </ul>
           </Section>
+            </div>
+          </div>
         </div>
 
         {/* Footer */}
