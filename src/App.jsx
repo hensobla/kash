@@ -459,8 +459,7 @@ export default function App() {
             </p>
             <ul className="space-y-2.5">
               <Bullet>
-                I'll leave you a supply of his dog treats.{' '}
-                <strong className="font-semibold">Stick to the ones I provide</strong> plus the veggies below.
+                I'll leave you a supply of his dog treats, and you can give him some fruits and veggies too.
               </Bullet>
               <Bullet>
                 He loves fruits and veggies, and they're low-cal so they're a great go-to.{' '}
